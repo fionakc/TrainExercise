@@ -46,15 +46,24 @@ public class Wagon <Q>{ 					//v
 	//and when there is no next Wagon it returns 1.
 	
 	public int size() {		
-		int num=1;
-		Wagon<Q> temp=next;
-		Wagon<Q> temp2;
-		while(temp!=null) {
-			num++;
-			temp2=temp.next;
-			temp=temp2;
-		}
-		return num;
+		
+		if(this.next==null) {				//v using recursion
+			return 1;						//v
+		} else {							//v
+			return 1+ this.next.size();		//v
+		}									//v
+		
+		
+	//	int num=1;
+	//	Wagon<Q> temp=next;
+	//	Wagon<Q> temp2;
+	//	while(temp!=null) {
+	//		num++;
+	//		temp2=temp.next;
+	//		temp=temp2;
+	//	}
+	//	return num;
+		
 	}
 	
 }
