@@ -32,7 +32,7 @@ public class Train <T> {		//v
 		} else {
 			//temp=temp.getNext();
 			return 1+temp.getNext().size();
-		}
+		} //there are 5 wagons of positions i=0-4
 		
 		
 		//can i use recursion here? - mebbeh??
@@ -64,71 +64,86 @@ public class Train <T> {		//v
 	//9. Add a method Wagon<T> getWagon(int i) to Train that returns the ith Wagon of the train. 
 	//You may want to modify Wagon while you do this
 	public Wagon<T> getWagon(int i){ //assuming i is valid
-		Wagon<T> temp=head;
-		//Wagon<T> temp2;		
-		for(int n=1;n<i;n++) {  //the n starting point determines if i starts at 0 or 1 >>it starts at 1
-			temp=temp.getNext();
-			//temp=temp2;
-		}		
+		Wagon<T> temp=head;		
+		if(i>=0 && i<size()) {
+			for(int n=0;n<i;n++) {  //the n starting point determines if i starts at 0 or 1 >>it starts at 0
+				temp=temp.getNext();
+			}				
+		} else {
+			System.out.println("Index "+i+" is out of bounds, returning last wagon");	
+			temp=getWagon(size()-1);
+		}
 		return temp;
 	}
 
 	
 	//10. Add a method int findWagon(T) to Train that finds the position of the first Wagon holding a value 
 	//that is equal (.equals) to the value given, or returns -1 if there is no such Wagon.
-	public int findWagon(T val) { //not working yet, may need recursion, working on size recursion as precurser
-		//T value=val;
-		Wagon<T> temp=head; //it's always returning 2 >> cos i'm not recursing it, duh
-		int num=1; 			//now always returning 1
-		
-		//if(temp.getNext()==null) {
-		//	return -1;
-		//} else if (!temp.equals(val)){
-		//	num++;
-		//	temp=temp.getNext();
-			//return 1+temp.findWagon(val);
-		//}
-		//System.out.println(val);
-		//System.out.println(temp.getValue());
-		
-		while(!temp.getValue().equals(val)) {
-			//System.out.println(temp.getValue());
+	public int findWagon(T val) { 	
+		Wagon<T> temp=head; 
+		int num=0; 							
+		while(!temp.getValue().equals(val)) {			
 			if(temp.getNext()==null) {
 				return -1;
 			} else {			
-				num++;
-				//System.out.println(num);
-				//if(!temp.equals(val)) {			//still not working, doesn't like the recursion thang i tried here
-					//return 1+temp.findWagon(val);
-					temp=temp.getNext();
-					//ntemp.findWagon(val);
-					//System.out.println(temp.getValue());
-				//}
+				num++;					
+				temp=temp.getNext();						
 			}
-		}
-		//System.out.println("done");
-		return num;
-		//Wagon<T> temp2;
-		//boolean equal=false;
-		//int num=0;
-		//while(!equal) {
-		//while(temp.getNext()!=null) {
-		//	if(temp.equals(val)) {
-						
-		//	} else {
-		//		temp=temp.getNext();
-		//		num++;
-		//	}
+		}		
+		return num;		
+	}
+	
+	//11. Add a method remove(int i) to Train that removes the ith Wagon from the train. 
+	//That is, if there are Wagons connected A -> B -> C -> D, 
+	//after remove(2) there should be Wagons connected A -> B -> D
+	public void remove(int i) { //use getWagon		
+		if(i==0) {
+			head=getWagon(1);
+		}		
+		if(i<size()-1 && i>0) {
+			Wagon<T> before=getWagon(i-1);
+			Wagon<T> after=getWagon(i+1);
+			before.setNext(after);
+		}		
+		if(i==size()-1) {
+			Wagon<T> before=getWagon(i-1);
+			before.setNext(null);
+		}		
+	}
+	
+	//12. Add a method T get(int i) to Train that returns the data item in the ith Wagon of the train
+	public T get(int i) {
+		Wagon<T> temp=getWagon(i);
+		return temp.getValue();
 			
-		//}
-		
-		//if(num>0) {
-		//	return num;
-		//} else {
-		//	return -1;
-		//}
-				
-	} //end findWagon
+	}
+	
+	//13. Add a method add(T) to Train that adds a new Wagon with the given data item at the end of the train.
+	public void add(T wag) {
+		Wagon<T> temp=new Wagon<T>(wag,null);
+		appendWagon(temp);		
+	}
+	
+	//14. Add a method T set(i, T) to Train that replaces the data item held by the ith Wagon of the train.
+	//Return the old value you removed
+	public T set(int i,T wag) {
+		T oldValue=wag;
+		if(i>=0 && i<size()) {
+			oldValue=get(i);
+			getWagon(i).setValue(wag);
+		} else {
+			System.out.println("Index "+i+" is out of bounds, returning given value");
+		}
+		return oldValue;
+	}
+	
+	//15. Add a method addAll(Train<T>) to Train that joins the chain of wagons of the given Train 
+	//onto the end of the current chain
+	public void addAll(Train<T> t2) {
+		Wagon<T> temp=getWagon(size()-1);
+		temp.setNext(t2.head);
+	}
+	
 	
 }
 
