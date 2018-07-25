@@ -77,19 +77,37 @@ public class Train <T> {		//v
 	//10. Add a method int findWagon(T) to Train that finds the position of the first Wagon holding a value 
 	//that is equal (.equals) to the value given, or returns -1 if there is no such Wagon.
 	public int findWagon(T val) { //not working yet, may need recursion, working on size recursion as precurser
-		T value=val;
+		//T value=val;
 		Wagon<T> temp=head; //it's always returning 2 >> cos i'm not recursing it, duh
-		int num=1; 
-		if(temp.getNext()==null) {
-			return -1;
-		} else {
-			if(!temp.equals(val)) {			//still not working, doesn't like the recursion thang i tried here
-				return 1+temp.findWagon(value);
-				//temp=temp.getNext();
-				//ntemp.findWagon(val);
+		int num=1; 			//now always returning 1
+		
+		//if(temp.getNext()==null) {
+		//	return -1;
+		//} else if (!temp.equals(val)){
+		//	num++;
+		//	temp=temp.getNext();
+			//return 1+temp.findWagon(val);
+		//}
+		//System.out.println(val);
+		//System.out.println(temp.getValue());
+		
+		while(!temp.getValue().equals(val)) {
+			//System.out.println(temp.getValue());
+			if(temp.getNext()==null) {
+				return -1;
+			} else {			
+				num++;
+				//System.out.println(num);
+				//if(!temp.equals(val)) {			//still not working, doesn't like the recursion thang i tried here
+					//return 1+temp.findWagon(val);
+					temp=temp.getNext();
+					//ntemp.findWagon(val);
+					//System.out.println(temp.getValue());
+				//}
 			}
 		}
-		//return num;
+		//System.out.println("done");
+		return num;
 		//Wagon<T> temp2;
 		//boolean equal=false;
 		//int num=0;

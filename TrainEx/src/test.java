@@ -42,7 +42,7 @@ public class test {
 		System.out.println(wT2.getValue());
 		
 		System.out.println("Testing findWagon");
-		System.out.println(t.findWagon("d"));
+		System.out.println(t.findWagon("a"));
 		System.out.println(t.findWagon("d"));
 		System.out.println(t.findWagon("e"));
 		System.out.println(t.findWagon("h"));
