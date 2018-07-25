@@ -2,11 +2,9 @@
 public class Train <T> {		//v
 
 	private Wagon<T> head;		//v
-	//private Wagon<T> next;
 	
 	public Train(Wagon<T> front) {		//v
 		head=front;						//v
-		//next=head.getNext();
 	}
 	
 	//4. Add a method prepend(Wagon<T>) to Train that allows adding a new head Wagon to the train
@@ -30,7 +28,6 @@ public class Train <T> {		//v
 		if(temp.getNext()==null) {
 			return 1;
 		} else {
-			//temp=temp.getNext();
 			return 1+temp.getNext().size();
 		} //there are 5 wagons of positions i=0-4
 		
@@ -50,11 +47,9 @@ public class Train <T> {		//v
 	//8. Add a method appendWagon(Wagon<T>) to Train that puts the given Wagon at the end of the train. 
 	//That is, the Wagon it was given will now be the final Wagon in the train.
 	public void appendWagon(Wagon<T> end) {
-		Wagon<T> temp=head;
-		//Wagon<T> temp2;	
+		Wagon<T> temp=head;	
 		while(temp.getNext()!=null) {
 			temp=temp.getNext();
-			//temp=temp2;
 		}		
 		//temp holds last, because temp.next=null
 		temp.insertAfter(end);
@@ -144,6 +139,49 @@ public class Train <T> {		//v
 		temp.setNext(t2.head);
 	}
 	
+	//16. Add a method int lastIndexOf(Object x) to Train that returns the position of 
+	//the last Wagon whose data item is equal (.equals()) to x.
+	public int lastIndexOf(T val) {
+		Wagon<T> temp=head;
+		int num=-1;		
+		for(int i=0;i<size();i++) {
+			if(temp.getValue().equals(val)) {
+				num=i;
+			}
+			temp=temp.getNext();
+		}
+		return num;
+	}
+	
+	//17. Add a method Train<T> reversed() to Train that returns 
+	//a new Train with all the same data items in reverse order
+	public Train<T> reversed(){   //this isn't working, need to start again
+		System.out.println("err1");
+		Wagon<T> temp=head;
+		Train<T> tRev=new Train<T>(getWagon(size()-1));
+		System.out.println("err2");
+		for(int i=0;i<this.size();i++) {
+		//for(int i=size()-1;i>=0;i--) {
+		//	tRev.prepend(getWagon(i));
+		//while(temp.getNext()!=null) {		
+			System.out.println("err3");
+			//tRev.prepend(temp);
+			System.out.println(temp.getValue());
+			System.out.println("err3a");
+			tRev.appendWagon(temp);
+			System.out.println("err4");
+			for(int j=0;j<tRev.size();j++) {
+				System.out.println(tRev.get(j));
+			}
+			temp=getWagon(i);
+			System.out.println(temp.getValue());
+			System.out.println("err5");
+			//tRev.prepend(temp);
+		}
+		System.out.println("err6");
+		return tRev;
+		//System.out.println("err7");
+	}
 	
 }
 

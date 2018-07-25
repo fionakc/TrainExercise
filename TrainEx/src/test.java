@@ -43,11 +43,16 @@ public class test {
 		Wagon<String> wT2=new Wagon<>(t.getWagon(2));
 		//System.out.println(wT2.getValue());
 		
-		//System.out.println("Testing findWagon");
-		//System.out.println(t.findWagon("a"));
-		//System.out.println(t.findWagon("d"));
-		//System.out.println(t.findWagon("e"));
-		//System.out.println(t.findWagon("h"));
+//		System.out.println("List");
+//		for(int i=0;i<t.size();i++) {
+//			System.out.println(t.get(i));
+//		}
+		
+//		System.out.println("Testing findWagon");
+//		System.out.println(t.findWagon("a"));
+//		System.out.println(t.findWagon("d"));
+//		System.out.println(t.findWagon("e"));
+//		System.out.println(t.findWagon("h"));
 		
 		//System.out.println("Testing remove");
 		//System.out.println(t.getWagon(0).getValue());
@@ -74,20 +79,33 @@ public class test {
 		//System.out.println("Testing set");
 		//System.out.println(t.set(7, "c"));
 		
-		System.out.println("List");
-		for(int i=0;i<t.size();i++) {
-			System.out.println(t.get(i));
-		}
+//		System.out.println("List");
+//		for(int i=0;i<t.size();i++) {
+//			System.out.println(t.get(i));
+//		}
 		
 		
-		Wagon<String> t21=new Wagon<>("x",null);					
-		Wagon<String> t22=new Wagon<>("w",t21);					
+		Wagon<String> t21=new Wagon<>("b",null);					
+		Wagon<String> t22=new Wagon<>("a",t21);					
 		Train<String>  t2=new Train<>(t22);
 		t.addAll(t2);
 		System.out.println("List");
 		for(int i=0;i<t.size();i++) {
 			System.out.println(t.get(i));
 		}
+		
+//		System.out.println("Testing lastIndexOf");
+//		System.out.println(t.lastIndexOf("a"));
+//		System.out.println(t.lastIndexOf("g"));
+//		System.out.println(t.lastIndexOf("e"));
+		
+		Train<String> t3=new Train<>(null);
+		t3=t.reversed();
+		System.out.println("Reversed");
+		for(int i=0;i<t.size();i++) {
+			System.out.println(t3.get(i));
+		}
+		
 		
 	} //end main
 	
