@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 
 public class test {
 
@@ -89,10 +91,10 @@ public class test {
 		Wagon<String> t22=new Wagon<>("a",t21);					
 		Train<String>  t2=new Train<>(t22);
 		t.addAll(t2);
-		System.out.println("List");
-		for(int i=0;i<t.size();i++) {
-			System.out.println(t.get(i));
-		}
+//		System.out.println("List");
+//		for(int i=0;i<t.size();i++) {
+//			System.out.println(t.get(i));
+//		}
 		
 //		System.out.println("Testing lastIndexOf");
 //		System.out.println(t.lastIndexOf("a"));
@@ -131,19 +133,39 @@ public class test {
 //		for(int i=0;i<t.size();i++) {
 //			System.out.println(t.get(i));
 //		}
-		String[] testArray=new String[2];
-		
-		Object[] tArray2=t.toArray(testArray);
-		
-		System.out.println("Testing generic Array");
-		for(int i=0;i<tArray2.length;i++) {
-			System.out.println(tArray2[i]);
-		}
+//		String[] testArray=new String[2];
+//		
+//		Object[] tArray2=t.toArray(testArray);
+//		
+//		System.out.println("Testing generic Array");
+//		for(int i=0;i<tArray2.length;i++) {
+//			System.out.println(tArray2[i]);
+//		}
 		
 		
 		System.out.println("List");
 		for(int i=0;i<t.size();i++) {
 			System.out.println(t.get(i));
+		}
+		
+		Wagon<String> wb1=new Wagon<>("b",null);	
+		Wagon<String> wa1=new Wagon<>("a",wb1);
+		
+		System.out.println("Testing iterator");
+		Train<String> tI=new Train<>(wa1);
+		Iterator<String> iterator=tI.iterator();
+		while(iterator.hasNext()) {
+			String nextVal=iterator.next();
+			System.out.println("The next value with Iterator is: "+nextVal);
+		}
+		
+		String[] testArray=new String[2];
+		
+		Object[] tArray2=t.toArray(testArray);
+		
+		
+		for (Object nextV: tArray2) {
+			System.out.println("The next value with the short for loop is "+nextV);
 		}
 		
 		

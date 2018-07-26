@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public class Train <T> {		//v
 
@@ -141,7 +142,7 @@ public class Train <T> {		//v
 	
 	//16. Add a method int lastIndexOf(Object x) to Train that returns the position of 
 	//the last Wagon whose data item is equal (.equals()) to x.
-	public int lastIndexOf(T val) {
+	public int lastIndexOf(Object val) {
 		Wagon<T> temp=head;
 		int num=-1;		
 		for(int i=0;i<size();i++) {
@@ -261,10 +262,38 @@ public class Train <T> {		//v
 	//the private fields and methods of the object of the surrounding class inside which they were created.
 	public Iterator<T> iterator(){
 		
-		
+		return new Repeat();
 		
 	}
 	
+	//inner class
+	public class Repeat implements Iterator<T>{
+		
+		private int index=0;
+		
+		public boolean hasNext() { 		//to check if there is a next object
+		if(index<size()) {				//if the index value is less than the size of the train
+				return true;			//return true
+			} else {					//if the index value is outside
+				return false;			//return false
+			}
+		}
+		
+		public T next(){				//to return the next object
+			if(this.hasNext()) {		//first see if there is a next object				
+				@SuppressWarnings("unchecked")
+				T[] testArray=(T[]) new Object[size()];		//need to return an array object
+				T[] tArray2=toArray(testArray);
+				return tArray2[index++];	//if yes, return the next indexed item
+			} else {					//otherwise
+				return null;			//return nothing
+			}
+		}
+		
+		public void remove() {
+			
+		}
+	} //end inner class
 	
 }
 
