@@ -38,9 +38,9 @@ public class test {
 		t.prepend("d");
 		//System.out.println("Testing adding new front wagon");
 		//System.out.println(t.size());
-		Wagon<String> wT1=new Wagon<>(t.getWagon(1));
+		//Wagon<String> wT1=new Wagon<>(t.getWagon(1));
 		//System.out.println(wT1.getValue());
-		Wagon<String> wT2=new Wagon<>(t.getWagon(2));
+		//Wagon<String> wT2=new Wagon<>(t.getWagon(2));
 		//System.out.println(wT2.getValue());
 		
 //		System.out.println("List");
@@ -84,8 +84,8 @@ public class test {
 //			System.out.println(t.get(i));
 //		}
 		
-		
-		Wagon<String> t21=new Wagon<>("b",null);					
+		Wagon<String> t23=new Wagon<>("c",null);
+		Wagon<String> t21=new Wagon<>("b",t23);					
 		Wagon<String> t22=new Wagon<>("a",t21);					
 		Train<String>  t2=new Train<>(t22);
 		t.addAll(t2);
@@ -99,12 +99,53 @@ public class test {
 //		System.out.println(t.lastIndexOf("g"));
 //		System.out.println(t.lastIndexOf("e"));
 		
-		Train<String> t3=new Train<>(null);
-		t3=t.reversed();
-		System.out.println("Reversed");
-		for(int i=0;i<t.size();i++) {
-			System.out.println(t3.get(i));
+		//Train<String> t3=new Train<>(null);
+		//t3=t.reversed();
+		//System.out.println("Reversed");
+		//for(int i=0;i<t.size();i++) {
+		//	System.out.println(t3.get(i));
+		//}
+		
+//		System.out.println("Testing reverse in place");
+//		t.reverse();
+//		System.out.println("List");
+//		for(int i=0;i<t.size();i++) {
+//			System.out.println(t.get(i));
+//		}
+		
+		//System.out.println("Testing add");
+		//t.add(11,"T");
+		
+		//System.out.println("Testing remove first instance");
+		//t.remove("t");
+		
+		//Object[] tArray=t.toArray();
+//		
+//		System.out.println("Testing Non-generic Array");
+//		for(int i=0;i<tArray.length;i++) {
+//			System.out.println(tArray[i]);
+//		}
+//		
+//		
+//		System.out.println("List");
+//		for(int i=0;i<t.size();i++) {
+//			System.out.println(t.get(i));
+//		}
+		String[] testArray=new String[2];
+		
+		Object[] tArray2=t.toArray(testArray);
+		
+		System.out.println("Testing generic Array");
+		for(int i=0;i<tArray2.length;i++) {
+			System.out.println(tArray2[i]);
 		}
+		
+		
+		System.out.println("List");
+		for(int i=0;i<t.size();i++) {
+			System.out.println(t.get(i));
+		}
+		
 		
 		
 	} //end main

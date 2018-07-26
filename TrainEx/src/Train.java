@@ -58,7 +58,7 @@ public class Train <T> {		//v
 	
 	//9. Add a method Wagon<T> getWagon(int i) to Train that returns the ith Wagon of the train. 
 	//You may want to modify Wagon while you do this
-	public Wagon<T> getWagon(int i){ //assuming i is valid
+	public Wagon<T> getWagon(int i){ 
 		Wagon<T> temp=head;		
 		if(i>=0 && i<size()) {
 			for(int n=0;n<i;n++) {  //the n starting point determines if i starts at 0 or 1 >>it starts at 0
@@ -155,33 +155,116 @@ public class Train <T> {		//v
 	
 	//17. Add a method Train<T> reversed() to Train that returns 
 	//a new Train with all the same data items in reverse order
-	public Train<T> reversed(){   //this isn't working, need to start again
-		System.out.println("err1");
-		Wagon<T> temp=head;
-		Train<T> tRev=new Train<T>(getWagon(size()-1));
-		System.out.println("err2");
-		for(int i=0;i<this.size();i++) {
-		//for(int i=size()-1;i>=0;i--) {
-		//	tRev.prepend(getWagon(i));
-		//while(temp.getNext()!=null) {		
-			System.out.println("err3");
-			//tRev.prepend(temp);
-			System.out.println(temp.getValue());
-			System.out.println("err3a");
-			tRev.appendWagon(temp);
-			System.out.println("err4");
-			for(int j=0;j<tRev.size();j++) {
-				System.out.println(tRev.get(j));
-			}
-			temp=getWagon(i);
-			System.out.println(temp.getValue());
-			System.out.println("err5");
-			//tRev.prepend(temp);
+	public Train<T> reversed(){  	
+		Wagon<T> temp=new Wagon<T>(head.getValue(),null);;
+		Train<T> tRev=new Train<T>(temp);
+		for(int i=1;i<size();i++) {			
+			temp=new Wagon<T>(get(i),null);
+			tRev.prepend(temp);		
 		}
-		System.out.println("err6");
 		return tRev;
-		//System.out.println("err7");
 	}
+	
+	//18. Add a method void reverse() to Train that reverses the Wagons of the train in-place. 
+	//That is, the last Wagon of the train will now come first, 
+	//and the second-to-last Wagon will come second, and so on. 
+	//The Train will have the same number of Wagons and the same data items afterwards, 
+	//just in a different order.
+	public void reverse() {
+		int num=(int)(size()/2);
+		for(int i=0;i<num;i++) { //<num so don't hit middle value
+			//Wagon<T> temp=new Wagon<T>(getWagon(i)); //make copy of first wagon
+			//T temp=get(i);
+			int swapVal=size()-1-i;
+			T temp=set(i,get(swapVal));
+			temp=set(swapVal,temp);
+		}
+		
+		
+	}
+	
+	//19. Add a method add(int,T) to Train that adds a new Wagon with the given data 
+	//item as the ith Wagon in the train. Be sure that t.add(0,x) and t.add(t.size(), x) both work
+	public void add(int i, T wag) {
+		Wagon<T> insert=new Wagon<T>(wag,null);
+		if(i==0) {
+			prepend(wag);
+		}
+		if(i>0 && i<size()) {
+			Wagon<T> temp=getWagon(i);
+			temp.insertAfter(insert);			
+		} else {
+			System.out.println("Index "+i+" is out of bounds, inserting at end");
+			appendWagon(insert);
+		}		
+	}
+	
+	//20. There is no 20 anymore
+	
+	//21. Add a method remove(Object o) to Train that removes the first Wagon 
+	//from the train whose data item is equal (.equals()) to o, retaining all other Wagons.
+	public void remove(Object val) {		
+//		int i=findWagon(val);
+//		if(i>=0) {
+//			remove(i);
+//		} else {
+//			System.out.println("There is no "+val+" to be removed");
+//		}		
+		
+		Wagon<T> temp=head; 
+		 int num=0;							
+		while(!temp.getValue().equals(val)) {			
+			if(temp.getNext()==null) {
+				System.out.println("There is no "+val+" to be removed");
+				num=-1;
+				break;
+			} else {									
+				temp=temp.getNext();
+				num++;
+			}
+		}		
+		if(num>=0) {
+			remove(num);
+		} 
+		
+		
+	}
+	
+	//22. Add a method Object[] toArray() to Train that returns all the data items 
+	//in the train in an array of the right size  >>non-generic array
+	public Object[] toArray() {
+		Object [] tList=new Object[size()];
+		for(int i=0;i<size();i++) {
+			tList[i]=get(i); //array holds data items
+		}
+		return tList;
+	}
+	
+	//23. Add a method T[] toArray(T[]) to Train that returns all the data items 
+	//in the train in an array of the right size and type   >>generic array, will have to cast values
+	public T[] toArray(T[] wag) {		//ignore array coming in, give back array of T[], cast 
+		@SuppressWarnings("unchecked")	//to stop unchecked warning
+		T[] tList=(T[]) new Object[size()]; //cast this
+		for(int i=0;i<size();i++) {
+			tList[i]=get(i);
+		}		
+		return tList;
+	}
+	
+	//24. Add a method Iterator<T> iterator() to Train that allows iterating 
+	//through all the data items in the train. 
+	//An Iterator object allows asking for the next item in turn, 
+	//and whether there are items remaining, and can be used with foreach loops. 
+	//The Iterator<E> interface has three methods: boolean hasNext(), E next(), 
+	//and void remove(); implement all of these. You may wish to use an inner class 
+	//(a class written inside another); objects made from an inner class can see 
+	//the private fields and methods of the object of the surrounding class inside which they were created.
+	public Iterator<T> iterator(){
+		
+		
+		
+	}
+	
 	
 }
 
