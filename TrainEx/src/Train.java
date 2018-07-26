@@ -1,6 +1,14 @@
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.AbstractList;
+import java.util.ListIterator;
 
-public class Train <T> {		//v
+//25. Make Train<T> implement List<T>. You may find subclassing AbstractList<T> useful.
+//Now I need to fill in all the missing methods
+//Some of them already exist, but have diff names or returns
+public class Train<T> extends AbstractList<T> implements List<T>{
+//public class Train <T>{		//v
 
 	private Wagon<T> head;		//v
 	
@@ -31,18 +39,6 @@ public class Train <T> {		//v
 		} else {
 			return 1+temp.getNext().size();
 		} //there are 5 wagons of positions i=0-4
-		
-		
-		//can i use recursion here? - mebbeh??
-	//	int num=0;		
-		
-		//Wagon<T> temp2;
-	//	while(temp!=null) {
-	//		num++;
-	//		temp=temp.getNext();
-			//temp=temp2;
-	//	}		
-	//	return num;
 	}
 	
 	//8. Add a method appendWagon(Wagon<T>) to Train that puts the given Wagon at the end of the train. 
@@ -114,10 +110,13 @@ public class Train <T> {		//v
 			
 	}
 	
+	/**AbstractList method*/
 	//13. Add a method add(T) to Train that adds a new Wagon with the given data item at the end of the train.
-	public void add(T wag) {
+	//public void add(T wag){		//changed for task 25
+	public boolean add(T wag) {				
 		Wagon<T> temp=new Wagon<T>(wag,null);
-		appendWagon(temp);		
+		appendWagon(temp);	
+		return true;
 	}
 	
 	//14. Add a method T set(i, T) to Train that replaces the data item held by the ith Wagon of the train.
@@ -143,13 +142,14 @@ public class Train <T> {		//v
 	//16. Add a method int lastIndexOf(Object x) to Train that returns the position of 
 	//the last Wagon whose data item is equal (.equals()) to x.
 	public int lastIndexOf(Object val) {
-		Wagon<T> temp=head;
+		//Wagon<T> temp=head;
 		int num=-1;		
 		for(int i=0;i<size();i++) {
-			if(temp.getValue().equals(val)) {
+			if(get(i).equals(val)) {
+			//if(temp.getValue().equals(val)) {
 				num=i;
 			}
-			temp=temp.getNext();
+			//temp=temp.getNext();
 		}
 		return num;
 	}
@@ -157,7 +157,7 @@ public class Train <T> {		//v
 	//17. Add a method Train<T> reversed() to Train that returns 
 	//a new Train with all the same data items in reverse order
 	public Train<T> reversed(){  	
-		Wagon<T> temp=new Wagon<T>(head.getValue(),null);;
+		Wagon<T> temp=new Wagon<T>(head.getValue(),null);
 		Train<T> tRev=new Train<T>(temp);
 		for(int i=1;i<size();i++) {			
 			temp=new Wagon<T>(get(i),null);
@@ -184,6 +184,7 @@ public class Train <T> {		//v
 		
 	}
 	
+	/**AbstractList method*/
 	//19. Add a method add(int,T) to Train that adds a new Wagon with the given data 
 	//item as the ith Wagon in the train. Be sure that t.add(0,x) and t.add(t.size(), x) both work
 	public void add(int i, T wag) {
@@ -243,6 +244,7 @@ public class Train <T> {		//v
 	
 	//23. Add a method T[] toArray(T[]) to Train that returns all the data items 
 	//in the train in an array of the right size and type   >>generic array, will have to cast values
+	
 	public T[] toArray(T[] wag) {		//ignore array coming in, give back array of T[], cast 
 		@SuppressWarnings("unchecked")	//to stop unchecked warning
 		T[] tList=(T[]) new Object[size()]; //cast this
@@ -294,6 +296,38 @@ public class Train <T> {		//v
 			
 		}
 	} //end inner class
+
+	/**AbstractList method*/
+	//Inserts all of the elements in the specified collection into this list at the specified position
+	public void addAll(int i, Train<T> t2) {
+		
+		int t2size=t2.size();
+		System.out.println("t2size "+t2size);
+
+		if(i==0) {
+			t2.getWagon(t2size-1).setNext(head);
+			head=t2.getWagon(0);
+		} 
+		if(i>0 && i<size()) {
+			t2.getWagon(t2size-1).setNext(getWagon(i));
+			getWagon(i-1).setNext(t2.head);
+		}
+		
+		if(i>=size()) {
+			System.out.println("Index "+i+" is out of bounds, inserting at end");
+			getWagon(size()-1).setNext(t2.head);
+		}
+
+	}
 	
+	/**AbstractList method*/
+	//Removes all of the elements from this list
+	public void clear() {
+		for(int i=size()-1;i>=0;i--) {
+			getWagon(i).setNext(null);
+			//remove(i);		//doesn't work because remove has wrong return type
+		}
+		getWagon(0).setValue(null);
+	}
 }
 

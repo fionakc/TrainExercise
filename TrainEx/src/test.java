@@ -148,26 +148,34 @@ public class test {
 			System.out.println(t.get(i));
 		}
 		
-		Wagon<String> wb1=new Wagon<>("b",null);	
-		Wagon<String> wa1=new Wagon<>("a",wb1);
+		Wagon<String> wb1=new Wagon<>("y",null);	
+		Wagon<String> wa1=new Wagon<>("w",wb1);
 		
-		System.out.println("Testing iterator");
+		//System.out.println("Testing iterator");
 		Train<String> tI=new Train<>(wa1);
-		Iterator<String> iterator=tI.iterator();
-		while(iterator.hasNext()) {
-			String nextVal=iterator.next();
-			System.out.println("The next value with Iterator is: "+nextVal);
+//		Iterator<String> iterator=tI.iterator();
+//		while(iterator.hasNext()) {
+//			String nextVal=iterator.next();
+//			System.out.println("The next value with Iterator is: "+nextVal);
+//		}
+//		
+//		String[] testArray=new String[2];
+//		
+//		Object[] tArray2=t.toArray(testArray);
+//		
+//		
+//		for (Object nextV: tArray2) {
+//			System.out.println("The next value with the short for loop is "+nextV);
+//		}
+		
+		//System.out.println("Testing addAll");
+		//t.addAll(11,tI);
+		
+		t.clear();
+		System.out.println("List");
+		for(int i=0;i<t.size();i++) {
+			System.out.println(t.get(i));
 		}
-		
-		String[] testArray=new String[2];
-		
-		Object[] tArray2=t.toArray(testArray);
-		
-		
-		for (Object nextV: tArray2) {
-			System.out.println("The next value with the short for loop is "+nextV);
-		}
-		
 		
 		
 	} //end main
