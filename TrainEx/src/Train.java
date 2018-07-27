@@ -71,7 +71,7 @@ public class Train<T> extends AbstractList<T> implements List<T>{
 	
 	//10. Add a method int findWagon(T) to Train that finds the position of the first Wagon holding a value 
 	//that is equal (.equals) to the value given, or returns -1 if there is no such Wagon.
-	public int findWagon(T val) { 	
+	public int findWagon(T val) { 		//kind of like indexOf
 		Wagon<T> temp=head; 
 		int num=0; 							
 		while(!temp.getValue().equals(val)) {			
@@ -85,10 +85,13 @@ public class Train<T> extends AbstractList<T> implements List<T>{
 		return num;		
 	}
 	
+	/**AbstractList method*/
 	//11. Add a method remove(int i) to Train that removes the ith Wagon from the train. 
 	//That is, if there are Wagons connected A -> B -> C -> D, 
 	//after remove(2) there should be Wagons connected A -> B -> D
-	public void remove(int i) { //use getWagon		
+	//public void remove(int i){	//changed for task 25
+	public T remove(int i) { //use getWagon		
+		T out=get(i);				//inserted for task 25
 		if(i==0) {
 			head=getWagon(1);
 		}		
@@ -101,8 +104,10 @@ public class Train<T> extends AbstractList<T> implements List<T>{
 			Wagon<T> before=getWagon(i-1);
 			before.setNext(null);
 		}		
+		return out;				//inserted for task 25
 	}
 	
+	/**AbstractList method*/
 	//12. Add a method T get(int i) to Train that returns the data item in the ith Wagon of the train
 	public T get(int i) {
 		Wagon<T> temp=getWagon(i);
@@ -119,6 +124,7 @@ public class Train<T> extends AbstractList<T> implements List<T>{
 		return true;
 	}
 	
+	/**AbstractList method*/
 	//14. Add a method T set(i, T) to Train that replaces the data item held by the ith Wagon of the train.
 	//Return the old value you removed
 	public T set(int i,T wag) {
@@ -205,7 +211,7 @@ public class Train<T> extends AbstractList<T> implements List<T>{
 	
 	//21. Add a method remove(Object o) to Train that removes the first Wagon 
 	//from the train whose data item is equal (.equals()) to o, retaining all other Wagons.
-	public void remove(Object val) {		
+	public void removeObj(Object val) {		
 //		int i=findWagon(val);
 //		if(i>=0) {
 //			remove(i);
@@ -325,9 +331,19 @@ public class Train<T> extends AbstractList<T> implements List<T>{
 	public void clear() {
 		for(int i=size()-1;i>=0;i--) {
 			getWagon(i).setNext(null);
-			//remove(i);		//doesn't work because remove has wrong return type
 		}
 		getWagon(0).setValue(null);
+	}
+	
+	/**AbstractList method*/
+	//Compares the specified object with this list for equality
+	public boolean equals(Object o) { //need to rewrite findWagon to account for Object, not T
+		int num=findWagon(o);
+		if(num<0) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 }
 
